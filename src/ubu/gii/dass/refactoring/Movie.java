@@ -17,17 +17,28 @@ public class Movie {
       public static final int  NEW_RELEASE = 1;
 
       private String _title;
-      private int _priceCode;
+      private Price _priceCode;
 
       public Movie(String title, int priceCode) {
         _title = title;
-        _priceCode = priceCode;
+        setPriceCode(priceCode);
       }
-      public int getPriceCode() {
+      public Price getPriceCode() {
         return _priceCode;
       }
       public void setPriceCode(int arg) {
-        _priceCode = arg;
+    	  
+    	  switch(arg){
+    	  case 0:
+    		  _priceCode=new Regular();
+    	  break;
+    	  case 1:
+    		  _priceCode=new NewRealease();
+          break;
+          case 2:
+        	  _priceCode=new Childrens();
+          break;
+    	  }
       }
       public String getTitle () {
         return _title;
@@ -39,7 +50,7 @@ public class Movie {
 	public double getCharge(int daysRented) {
 		double thisAmount = 0;
 		//determine amounts for each line
-		   switch (getPriceCode()) {
+		   switch (_priceCode.getPriceCode()) {
 		     case Movie.REGULAR:
 		       thisAmount += 2;
 		       if (daysRented > 2)
@@ -63,7 +74,7 @@ public class Movie {
 	public int getFrecuentRenterPoints(int daysRented) {
 		int frequentRenterPoints=1;
 		// add bonus for a two day new release rental
-	    if ((getPriceCode() == Movie.NEW_RELEASE) &&
+	    if ((_priceCode.getPriceCode() == Movie.NEW_RELEASE) &&
 	         daysRented > 1)
 	        frequentRenterPoints ++;
 		return frequentRenterPoints;
