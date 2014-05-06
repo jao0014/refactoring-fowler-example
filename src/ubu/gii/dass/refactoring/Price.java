@@ -1,7 +1,7 @@
 package ubu.gii.dass.refactoring;
 
-public class Price {
+public abstract class Price{
 	
-	
+	public abstract int getPriceCode();
 
 }
